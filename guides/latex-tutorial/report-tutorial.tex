@@ -1,0 +1,507 @@
+\documentclass[a4paper, onecolumn, 10pt]{report}
+
+% document identification
+\title{Tutorial para uso de \LaTeX}
+\author{Rui Lopes}
+\date{novembro de 2016}
+
+% section for package imports
+\usepackage[margin=3.5cm]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{times}
+\usepackage{acro}
+
+% acronyms declarations
+\DeclareAcronym{WYSIWYG}{
+    short = WYSIWYG,
+    long = What You See Is What You Get,
+    sort = W,
+    class = abbrev
+}
+\DeclareAcronym{WYSIWYM}{
+    short = WYSIWYM,
+    long = What You See Is What You Mean,
+    sort = W,
+    class = abbrev
+}
+\DeclareAcronym{ASCII}{
+    short = ASCII,
+    long = American Standard Code for Information Interchange,
+    sort = I,
+    class = abbrev
+}
+\DeclareAcronym{UTF}{
+    short = UTF,
+    long = Unicode Transformation Format,
+    sort = U,
+    class = abbrev
+}
+\DeclareAcronym{INEM}{
+    short = INEM,
+    long = Instituto Nacional de Emergência Médica,
+    sort = I,
+    class = abbrev
+}
+
+% color definitions
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+% style definitions for listings
+\lstset{
+    frame=Ltb,
+    framerule=0pt,
+    aboveskip=0.5cm,
+    framextopmargin=3pt,
+    framexbottommargin=3pt,
+    framexleftmargin=0.4cm,
+    framesep=0pt,
+    rulesep=.4pt,
+    backgroundcolor=\color{gray97},
+    rulesepcolor=\color{black},
+    stringstyle=\ttfamily,
+    showstringspaces = false,
+    basicstyle=\small\ttfamily,
+    commentstyle=\color{gray45},
+    keywordstyle=\bfseries,
+    numbers=left,
+    numbersep=15pt,
+    numberstyle=\tiny,
+    numberfirstline = false,
+    breaklines=true,
+    inputencoding=utf8,
+    extendedchars=true,
+    escapeinside={\%*}{*)},
+    literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {ê}{{\^e}}1 {ó}{{\'o}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1,
+}
+\lstnewenvironment{listing}[1][]{\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+\lstdefinestyle{console}{
+    basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+}
+
+\begin{document}
+
+% front cover
+\maketitle
+
+\section{Introdução}
+De forma a podermos escrever textos onde a real preocupação está no conteúdo,
+contrariamente a ferramentas como a Microsoft Word, onde o paradigma é de \ac{WYSIWYG} e também
+nos temos de preocupar com os estilos e formatação, a ferramenta de trabalho \LaTeX, derivada
+da \TeX, permite a produção de textos científicos e rigorosos através de um paradigma de
+\ac{WYSIWYM}. A escolha da criação de relatórios, artigos, \textit{papers}, livros, ... em
+\LaTeX, ao invés de outras ferramentas, acontece principalmente pela flexibilidade de escrita que é
+fornecida aos autores, permitindo que se alterem conteúdos, por exemplo, num início de um documento
+quando este se encontra quase terminado, sem alterar definições de formatação ou estilo - estes
+parâmetros são próprios da ferramenta \LaTeX, precisando apenas de ser especificados uma só vez.
+
+\chapter{Estrutura de documentos \LaTeX}
+Ao longo deste documento iremos retratar detalhes de estrutura de documentos em \LaTeX, mais em
+especial, de documentos da classe \textbf{relatório}, isto é, \texttt{report}.\\
+Este documento, que também foi feito em \LaTeX, provém de um ficheiro com extensão \texttt{.tex} que contém
+um conjunto de comandos e instruções numa linguagem muito particular. Este código, consideremos, presente
+no ficheiro \texttt{report-tutorial.tex} pode ser compilado através de um compilador denominado de
+\textbf{pdflatex}. Para compilarmos este código podemos executar o seguinte no terminal:
+
+\begin{lstlisting}[language=sh, style=console]
+pdflatex report-tutorial.tex
+\end{lstlisting}
+
+\section{Classe de documento e especificações}
+
+Ora, quando criamos um documento em \LaTeX a primeira preocupação, tal como a primeira linha de código a
+ser implementada, deverá ser a especificação da \textbf{classe} do documento. Por classe pretende-se
+designar se queremos tanto criar um relatório, um artigo, um livro, entre outros, como detalhar quais as
+configurações gerais das páginas, como o tamanho de letra base, o número de colunas de texto (entre uma e duas),
+tamanho da folha, entre outros... Neste caso em concreto, a primeira linha de código escrita é a que está abaixo.
+
+\lstinputlisting[language=TeX, firstline=1, lastline=1]{report-tutorial.tex}
+
+Por questões de \textbf{boas-práticas} os documentos desta linguagem - embora entre numa norma geral, em termos de
+outras linguagens - devem estar organizados da seguinte forma:
+
+\begin{itemize}
+    \item Classe de documento e especificações (\texttt{\textbackslash documentclass[options]\{class\}});
+    \item Identificação do documento (especificação de título, autores, data, local, ...);
+    \item Importação e uso de pacotes (\texttt{\textbackslash usepackage[options]\{package\}});
+    \item Caraterização de alguns pacotes (alguns pacotes requerem configurações);
+    \item Conteúdo do documento (\texttt{\textbackslash begin\{document\} ... \textbackslash end\{document\}}).
+\end{itemize}
+
+\section{Identificação do documento}
+
+Continuando assim na nossa organização temos agora a secção de \textbf{identificação do documento} onde o essencial está
+em designar um título, um ou mais autores, uma data, entre outras informações que possam ser acrescentadas. Consideremos apenas
+as primeiras três informações, as quais, em \LaTeX, podem ser inseridas através dos comandos \texttt{title}, \texttt{author} e
+\texttt{date}, respetivamente. No código do presente documento podemos encontrar a seguinte secção de identificação de documento:
+
+\lstinputlisting[language=TeX, firstline=3, lastline=7]{report-tutorial.tex}
+
+\section{Importação e uso de pacotes}
+
+Para complementar o nosso documento com alguns \textbf{componentes}, como secções de código numa determinada linguagem de
+programação, imagens, detalhes linguísticos, entre outros, da mesma forma que em linguagens como a Java, usamos \textbf{pacotes}.
+Em termos de \LaTeX, para importar um pacote usamos o comando \texttt{usepackage}, o qual irá questionar as bibliotecas locais do
+\LaTeX se os mesmos existem, aplicando-os, se possível.\\
+Existem uns tantos pacotes que são importantes considerar na criação de um documento em \LaTeX. Um desses é o \textbf{babel}. Este
+pacote permite que o compilador \texttt{pdflatex} tenha noção sobre que regras linguísticas é que este se deve reger aquando da
+aplicação, por exemplo, de critérios de \textbf{hifenização}. A hifenização é a truncagem de palavras por sílabas quando estas
+excedem a largura da folha onde estas estão escritas. A noção do que é uma sílaba é diferente de idioma para idioma. Através do
+pacote \texttt{babel} é possível indicar sobre que regras de ortografia é que se pretende que o compilador se reja. \\
+Mais, o pacote \texttt{babel} permite também que se altere o idioma das palavras que o compilador inseriu pelo utilizador, como a
+palavra "Capítulo" no caso de um comando \texttt{chapter}, em português, ou de "Conteúdos" no caso do comando
+\texttt{tableofcontents} - comando que iremos abordar mais à frente. Mudando o idioma definido nas opções do pacote \texttt{babel}
+é possível alterar o idioma de tais palavras, por exemplo, alterando de \texttt{portuguese} para \texttt{italian}, ficando "Capitolo",
+ou para \texttt{french}, ficando "Chapitre". \\
+Para incluirmos o pacote \texttt{babel} em português podemos assim inserir a seguinte linha de código:
+
+\begin{lstlisting}[language=TeX]
+\usepackage[portuguese]{babel}
+\end{lstlisting}
+
+O pacote \textbf{inputenc} permite alterar a codificação da entrada do compilador (\textit{input encoding}). Por outras palavras, o \LaTeX,
+quando foi criado, não foi desenhado propriamente para idiomas como o português, espanhol, francês, italiano, ... mas antes para o inglês.
+O problema disto é que a codificação dos carateres baseia-se em \ac{ASCII}. Acontece que esta codificação não contém carateres como o 'a' com
+til (ã) nem o 'o' truncado (ø), por exemplo. Se escrevermos um código em \LaTeX com um carater como 'æ' o mais provável é aparecerem combinações
+menos próprias de carateres, ao invés de 'æ'. Para resolver esta situação podemos escrever os carateres através dos comandos \LaTeX, como o
+\texttt{\textbackslash acute\{a\}}, que produz um 'á', ou, mais simplesmente, importamos o pacote \texttt{inputenc} e designamos-lhe
+uma codificação decente, como a mais usada \textbf{UTF-8} ou \textbf{UTF-16} - \ac{UTF}. No nosso caso, deste documento, estamos a usar a seguinte linha:
+
+\begin{lstlisting}[language=TeX]
+\usepackage[utf8]{inputenc}
+\end{lstlisting}
+
+Ainda assim, o compilador já pode estar a perceber o intuito do utilizador para um carater fora do mapa do inglês, mas a fonte (tipo de letra)
+usada pode não suportar o mesmo. Assim sendo, e para que haja um ajuste da fonte para um determinado conjunto de carateres (como o chinês, por
+exemplo), há que identificar uma \textbf{codificação da fonte}, usando o pacote \texttt{fontenc}. Neste documento estamos a usar o tipo 1,
+otimizado para os idiomas da Europa Ocidental, como podemos ver de seguida:
+
+\begin{lstlisting}[language=TeX]
+\usepackage[T1]{fontenc}
+\end{lstlisting}
+
+Outro pacote que poderá ser útil é o de exibição de código de programação. Para isto é possível usar um de dois pacotes bastante conhecidos. A
+primeira alternativa é o \texttt{verbatim}. O \texttt{verbatim} permite criar uma área onde o texto em si inserido é escapado (são ignorados
+possíveis comandos \LaTeX nele contidos), mas não permite a formatação ou deteção de linguagem de programação para sintaxe com \textit{highlight}.
+Pelo contrário, a segunda alternativa, a \texttt{listings} permite a mesma isolação que o \texttt{verbatim} mas com a valência de formatação e destaque
+de sintaxe de linguagem de programação. Para usar este pacote apenas temos de escrever a seguinte linha de código:
+
+\begin{lstlisting}[language=TeX]
+\usepackage{listings}
+\end{lstlisting}
+
+Embora hajam muitos outros pacotes, por último, dos mais importantes, fica o pacote \textbf{acro} que permite fazer uma gestão dos vários acrónimos
+ao longo do nosso documento. Assim sendo, fazendo apenas a linha seguinte, podemos usar o pacote \texttt{acronym}:
+
+\begin{lstlisting}[language=TeX]
+\usepackage{acro}
+\end{lstlisting}
+
+\section{Caraterização de alguns pacotes}
+Alguns dos pacotes referidos podem, ou não, exigir que sejam elaboradas algumas configurações para que funcionem. Assim sendo, eis as configurações, caso
+necessárias, dos vários pacotes que referimos. \textbf{Nota:} podem haver pacotes que não estão elaborados nestas descrições, no entanto, que sejam usadas
+neste documento. Dado que isso poderá acontecer, aconselha-se a analisar o código-fonte (ficheiro \texttt{report-tutorial.tex}) para perceber o que cada
+módulo faz.
+
+\subsection{Configuração do pacote \texttt{listings}}
+
+Como foi referido, o pacote \texttt{listings} permite a formatação e destaque da linguagem de programação com a qual o texto em si está escrito. Para tal
+é conveniente que se descreva como é que se pretende desenhar as informações de código. Para tal, este pacote permite que se designem as várias informações
+através do comando \texttt{lstset}, onde criamos uma possível configuração, como podemos ver no código abaixo:
+
+\begin{lstlisting}[language=TeX]
+% style definitions for listings
+\lstset{
+    frame=Ltb,
+    framerule=0pt,
+    aboveskip=0.5cm,
+    framextopmargin=3pt,
+    framexbottommargin=3pt,
+    framexleftmargin=0.4cm,
+    framesep=0pt,
+    rulesep=.4pt,
+    backgroundcolor=\color{gray97},
+    rulesepcolor=\color{black},
+    stringstyle=\ttfamily,
+    showstringspaces = false,
+    basicstyle=\small\ttfamily,
+    commentstyle=\color{gray45},
+    keywordstyle=\bfseries,
+    numbers=left,
+    numbersep=15pt,
+    numberstyle=\tiny,
+    numberfirstline = false,
+    breaklines=true,
+}
+\end{lstlisting}
+
+No código acima as cores que estão definidas, como se pode ver no ficheiro de código-fonte, estão definidas pela utilização de um outro pacote, o
+\texttt{color}, que permite criar a cor que quisermos aplicar a um determinado contexto de utilização. \\
+Ao mesmo tempo que neste documento definimos uma configuração-base para as listas, podemos criar configurações alternativas da mesma, criando um estilo
+alternativo através do comando \texttt{lstdefinestyle}, seguido do nome que queremos aplicar ao estilo - no nosso caso será \texttt{console}.
+
+\begin{lstlisting}[language=TeX]
+\lstdefinestyle{console}{
+    basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+}
+\end{lstlisting}
+
+Para usar cada um dos estilos aplicamos a designação \texttt{style=console}, caso queiramos usar o nosso estilo alternativo, no campo de opção do comando
+\texttt{lstlisting}. O código-fonte para o código acima é o seguinte, onde no campo de opção estamos a designar que a linguagem que pretendemos aplicar é a
+\TeX (mãe da linguagem \LaTeX).
+
+\lstinputlisting[language=TeX, firstline=250, lastline=256]{report-tutorial.tex}
+
+Também podemos ler de um ficheiro presente no mesmo diretório que o ficheiro \texttt{.tex} e até mesmo escolher as linhas, fazendo algo à semelhança do
+seguinte:
+
+\begin{lstlisting}[language=TeX]
+\lstinputlisting[language=TeX, firstline=250, lastline=256]{report-tutorial.tex}
+\end{lstlisting}
+
+\subsection{Configuração do pacote \texttt{acro}}
+Para trabalharmos com o pacote \texttt{acro} temos que, à medida que vamos criando novos acrónimos ou abreviaturas, enunciá-las primeiro, antes das suas
+utilizações. Para o fazermos, por exemplo, para o acrónimo INEM, temos que criar um bloco de código com o comando \texttt{DeclareAcronym} seguido das
+várias informações acerca do mesmo, entre as quais, qual é o seu nome abreviado (\texttt{short}) - INEM -, qual é o seu nome por extenso (\texttt{long}) -
+Instituto Nacional de Emergência Médica -, qual é a primeira letra a considerar para termos de ordenação (\texttt{sort}) - letra I - e que tipo de acrónimo
+é que estamos a referir (\texttt{class}) - \texttt{abbrev} -, este, podendo ser entre \texttt{abbrev} para abreviatura ou \texttt{nomencl} para nomenclaturas.
+Em baixo temos um exemplo de aplicação do acrónimo INEM, como abreviatura:
+
+\begin{lstlisting}[language=TeX]
+\DeclareAcronym{INEM}{
+    short = INEM,
+    long = Instituto Nacional de Emergência Médica,
+    sort = I,
+    class = abbrev
+}
+\end{lstlisting}
+
+A partir deste ponto, cada vez que pretendamos usar o acrónimo \ac{INEM} utilizamos o comando \texttt{ac} seguido do nome que atribuímos ao acrónimo. Nesta linha
+tal ação já está a ser conduzida, pelo código que vemos em baixo:
+
+\begin{lstlisting}[language=TeX]
+(...) pretendamos usar o acrónimo \ac{INEM} utilizamos o comando (...)
+\end{lstlisting}
+
+No final dos documentos, ou no início, costumam-se detalhar uma lista de acrónimos usados no mesmo, o qual, em \LaTeX é possível fazer, automaticamente, sem criar
+uma página nova, através da seguinte linha de código, onde apenas listamos abreviaturas.
+
+\begin{lstlisting}[language=TeX]
+\printacronyms[include-classes=abbrev, name=Acrónimos]
+\end{lstlisting}
+
+O resultado desta operação é algo como o seguinte:
+
+\printacronyms[include-classes=abbrev, name=Acrónimos]
+
+Caso queiramos uma lista de nomenclaturas, ao invés do código anterior, devemos escrever antes a linha seguinte:
+
+\begin{lstlisting}[language=TeX]
+\printacronyms[include-classes=nomencl, name=Acrónimos]
+\end{lstlisting}
+
+\section{Conteúdo do documento} \label{cont-of-doc}
+Na criação de um documento, seja de que classe for, há uma determinada hierarquia de regiões do mesmo que convém delinear na sua criação. Consideremos um livro:
+quando criamos um livro a primeira preocupação deverá ser criar uma primeira abordagem de abstração para os conteúdos do mesmo, designando-lhe \textbf{partes}.
+Cada uma destas partes terá um conjunto de \textbf{capítulos}. Por conseguinte, cada um destes capítulos terá uma \textbf{secção}, depois uma \textbf{subsecção},
+entre outros... Em \LaTeX este tipo de hierarquia de regiões é possível ser realizado através dos comandos seguintes:
+
+\begin{itemize}
+    \item \texttt{\textbackslash \textbf{part}\{Nome da Parte\}}
+    \item \texttt{\textbackslash \textbf{chapter}\{Nome do Capítulo\}}
+    \item \texttt{\textbackslash \textbf{section}\{Nome da Secção\}}
+    \item \texttt{\textbackslash \textbf{subsection}\{Nome da Subsecção\}}
+    \item \texttt{\textbackslash \textbf{subsubsection}\{Nome da Sub-subsecção\}}
+    \item \texttt{\textbackslash \textbf{paragraph}\{Parágrafo\}}
+    \item \texttt{\textbackslash \textbf{subparagraph}\{Subparágrafo\}}
+\end{itemize}
+
+A ordem com que se criam estes itens num ficheiro em \LaTeX permite então, mais tarde, atribuir um número de sequência a cada um destes, detalhando-os
+num índice através do comando \texttt{\textbackslash tableofcontents}.
+
+\chapter{Escrita de conteúdos}
+Dentro de cada uma das regiões designadas na secção "\nameref{cont-of-doc}" é então possível escrever o mais variado texto - o verdadeiro conteúdo do
+documento, razão pela qual este deverá existir. Este conteúdo poderá ter várias formas - poderá ser texto, imagens, tabelas, código, entre outros... Neste
+capítulo iremos abordar como interagir em \LaTeX com os tipos de conteúdos mais usuais.
+
+\section{Escrever texto comum}
+De todos os tipos de conteúdo possíveis, o \textbf{texto} é, sem dúvida, o mais simples de implementar, dado que apenas é necessário escrever o que se
+pretende diretamente no código-fonte \texttt{*.tex}. Acontece que existem alguns pontos essenciais, na implementação do texto, que não são nada lineares. \\
+
+\subsection{Carateres especiais}
+Quando queremos executar um novo comando na linguagem \LaTeX enunciamos o mesmo através de uma barra anterior (carater '\textbackslash'). Mas isto causa-nos
+um dilema - se nós pretendermos escrever, de facto, o carater '\textbackslash' em texto o compilador irá interpretar que estamos perante um comando, sendo o
+nome dele o texto que se segue ao carater. O que fazer, então, para contornar este problema? Para resolver o problema temos de \textbf{escapar} o carater '\textbackslash',
+isto é, tirar o significado de \textit{comando} que tem perante o compilador. Assim, ao invés de denotar '\textbackslash' em texto, devemos escrever \texttt{\textbackslash textbackslash}.
+Note-se que escrever \textbackslash \textbackslash também não resolve o problema dado que em \LaTeX este comando significa \textit{nova linha}, de forma equivalente
+a um \texttt{\textbackslash n} de uma linguagem de programação como a C ou a Java. \\
+A mesma coisa acontece para o carater de til - '\textasciitilde'. Em \LaTeX o til tem o significado de um espaço, no entanto, se se pretender escrever em texto, embora
+o compilador não se queixe, será necessário escrever \texttt{\textbackslash textasciitilde}. Note-se que o uso de comandos também é essencial quando, não tendo
+informações de codificação inseridas no código, se pretendem inserir carateres não-\ac{ASCII}. Por exemplo, para listar as semi-vogais do alfabeto norueguês, não
+tendo a codificação para as mesmas (como a \ac{UTF}-8), seria necessário escrever \texttt{\textbackslash r\{a\}} para escrever um \texttt{å}, \texttt{\textbackslash o} para
+escrever um \texttt{ø} e \texttt{\textbackslash ae} para escrever um \texttt{æ}. \\
+Um outro carater especial e que é necessário escapar são as chavetas. Isto acontece porque nesta linguagem as chavetas funcionam como delimitadores de regiões de contexto
+de existência, isto é, limitadores de significado de um determinado comando ou conjunto de comandos. Por exemplo, se escrevermos \texttt{\textbackslash o e} significa, para o compilador,
+que o utilizador pretende escrever \o e, sendo que o espaço entre os dois carateres serve como um terminador de \texttt{\textbackslash o} e não como um espaço entre ambos. Uma
+forma de resolver esta situação seria aplicando um til ao invés do espaço em código, desta forma \texttt{\textbackslash o~e}, ficando \o~e. No entanto, também podemos resolver
+este problema através das chavetas, delimitando o contexto de existência para o comando \texttt{\textbackslash o} numa determinada região, escrevendo simplesmente \texttt{\{\textbackslash o\} e},
+ficando assim {\o} e. Para escrever cada uma das chavetas usamos \texttt{\textbackslash \{} ou \texttt{\textbackslash \}}.\\
+Por último, o carater '\$' é outro que é importante frisar que não é possível escrevê-lo sem ser no contexto de um comando, dando erro de compilação caso contrário. Isto acontece
+porque, de forma semelhante às chavetas, o carater \$ delimita o contexto de existência de \textbf{expressões matemáticas}, assunto que veremos na secção seguinte. Para escrever, assim sendo
+o carater \$ devemos usar a barra e escrever o carater pretendido, isto é, escrever \texttt{\textbackslash \$}.
+
+\subsection{Expressões matemáticas}
+Como referido no fim da secção anterior, o carater \$ define o início (ou o fim) de uma região onde se descrevem \textbf{expressões matemáticas}. Quando referimos
+expressões matemáticas queremos dizer algo como $x = \frac{{ - b \pm \sqrt {b^2 - 4ac} }}{{2a}}$. As expressões matemáticas definem-se então entre \$ singulares, isto é,
+\texttt{\$}\textit{expressão}\texttt{\$}. Por exemplo, para fazer a expressão da fórmula resolvente, usou-se o seguinte código:
+
+\begin{lstlisting}[language=TeX]
+$x = \frac{{ - b \pm \sqrt {b^2 - 4ac} }}{{2a}}$
+\end{lstlisting}
+
+No entanto, fazer \texttt{\$}\textit{expressão}\texttt{\$} não é a única forma de designar uma expressão matemática, sendo que com um \$ singular signfica que prentendemos um
+ambiente matemático iniciado de forma \textbf{inline}, isto é, inserido na linha do texto. Acontece que grande parte das vezes as expressões são grandes demais para serem
+meramente representadas no tamanho de uma linha de texto comum. Assim sendo, geralmente usam-se \$ duplos para designar um ambiente matemático com o espaço mais adquado para
+leitura. Veja-se assim a equação seguinte $$x = \frac{{ - b \pm \sqrt {b^2 - 4ac} }}{{2a}}$$ onde se representa a fórmula resolvente. \\
+Ainda assim é pouco rigoroso, num documento científico e de engenharia, representar as expressões matemáticas desta forma, dado que será necessário, em algum momento, referenciar
+uma determinada equação num local do texto. Uma forma de resolver este problema é usando o ambiente \texttt{equation}, isto é, usando o comando com o mesmo nome. Assim, quando
+escrevemos a expressão matemática, automaticamente é-lhe associado um identificador, que poderá ser usado para referenciação posterior. Note-se, novamente, a equação da fórmula
+resolvente em \ref{eq-form-resolvente}.
+
+\begin{equation}
+    x = \frac{{ - b \pm \sqrt {b^2 - 4ac} }}{{2a}}  \label{eq-form-resolvente}
+\end{equation}
+
+Em termos de código, a fonte para o que está a ser produzido acima está em baixo:
+
+\begin{lstlisting}[language=TeX]
+(...) Note-se, novamente, a equação da fórmula resolvente em \ref{eq-form-resolvente}.
+
+\begin{equation}
+    x = \frac{{ - b \pm \sqrt {b^2 - 4ac} }}{{2a}}  \label{eq-form-resolvente}
+\end{equation}
+\end{lstlisting}
+
+\subsection{Listas (de itens e numeradas)}
+De forma a poder sintetizar alguns conteúdos, muitas vezes é-nos útil recorrer à criação de \textbf{listas}. As listas, em \LaTeX são muito intuitivas de serem feitas. Existem
+três tipos de listas: listas não numeradas com símbolos, listas não numeradas com texto e listas numeradas. As diferenças entre elas estão na utilização dos comandos \texttt{itemize},
+\texttt{description} e \texttt{enumerate}, respetivamente. \\
+Começando pelo primeiro tipo, o comando \texttt{itemize} permite que seja criada uma lista de marcas, por definição, sendo a marca um ponto. Por exemplo:
+
+\begin{itemize}
+    \item Ponto 1
+    \item Ponto 2
+    \item Ponto 3
+\end{itemize}
+
+Cada um dos pontos é indicado através de um comando denominado de \texttt{item}, como podemos ver no código abaixo, descritivo do que está em cima:
+
+\begin{lstlisting}[language=TeX]
+\begin{itemize}
+    \item Ponto 1
+    \item Ponto 2
+    \item Ponto 3
+\end{itemize}
+\end{lstlisting}
+
+Se quisermos mudar as marcas da lista, de pontos para outro tipo de símbolo, basta especificá-lo como a opção dos itens:
+
+\begin{itemize}
+    \item[>] Ponto 1
+    \item[>] Ponto 2
+    \item[>] Ponto 3
+\end{itemize}
+
+\begin{lstlisting}[language=TeX]
+\begin{itemize}
+    \item[>] Ponto 1
+    \item[>] Ponto 2
+    \item[>] Ponto 3
+\end{itemize}
+\end{lstlisting}
+
+Quando queremos acrescentar um novo nível de indentação precisamos de instanciar novo bloco de \texttt{itemize}.
+
+\begin{itemize}
+    \item[>] Ponto 1
+    \item[>] Ponto 2
+    \item[>] Ponto 3
+    \begin{itemize}
+        \item Ponto A
+    \end{itemize}
+    \item[>] Ponto 4
+\end{itemize}
+
+\begin{lstlisting}[language=TeX]
+\begin{itemize}
+    \item[>] Ponto 1
+    \item[>] Ponto 2
+    \item[>] Ponto 3
+    \begin{itemize}
+        \item Ponto A
+    \end{itemize}
+    \item[>] Ponto 4
+\end{itemize}
+\end{lstlisting}
+
+Se ao invés de um símbolo pretendermos colocar uma designação (decrição), então usamos o bloco \texttt{description} e no campo opcional indicamos a descrição
+pretendida, como em baixo:
+
+\begin{description}
+    \item[Programa 1] Ponto 1
+    \item[Programa 2] Ponto 2
+    \item[Programa 3] Ponto 3
+\end{description}
+
+\begin{lstlisting}[language=TeX]
+\begin{description}
+    \item[Programa 1] Ponto 1
+    \item[Programa 2] Ponto 2
+    \item[Programa 3] Ponto 3
+\end{description}
+\end{lstlisting}
+
+Por fim, para fazer uma lista enumerada usamos o bloco de código \texttt{enumerate}, como podemos ver em baixo:\\
+
+\textbf{Há três coisas que me irritam}
+\begin{enumerate}
+    \item \LaTeX
+    \item Listas
+    \item Sarcasmo
+\end{enumerate}
+
+\begin{lstlisting}[language=TeX]
+\textbf{Há três coisas que me irritam}
+\begin{enumerate}
+    \item \LaTeX
+    \item Listas
+    \item Sarcasmo
+\end{enumerate}
+\end{lstlisting}
+
+\subsection{Figuras}
+
+\subsection{Tabelas}
+
+\subsection{Referências textuais}
+
+\chapter{Especificação de Bibliografia - Bib\TeX}
+
+\chapter{Compilação em \LaTeX}
+
+% table of contents
+\tableofcontents
+
+\newpage
+
+% call acronym descriptions
+\printacronyms[include-classes=abbrev, name=Acrónimos]
+\end{document}
