@@ -1,0 +1,175 @@
+\documentclass[a4paper, onecolumn, 10pt]{report}
+
+% document identification
+\title{Tutorial para uso de \LaTeX}
+\author{Rui Lopes}
+\date{novembro de 2016}
+
+% section for package imports
+\usepackage[margin=3.5cm]{geometry}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[sfdefault,lf]{carlito}
+\usepackage{color}
+\usepackage{acro}
+
+% acronyms declarations
+\DeclareAcronym{WYSIWYG}{
+    short = WYSIWYG,
+    long = What You See Is What You Get,
+    sort = W,
+    class = abbrev
+}
+
+% color definitions
+\definecolor{gray97}{gray}{.97}
+\definecolor{gray75}{gray}{.75}
+\definecolor{gray45}{gray}{.45}
+
+% style definitions for listings
+\lstset{
+    frame=Ltb,
+    framerule=0pt,
+    aboveskip=0.5cm,
+    framextopmargin=3pt,
+    framexbottommargin=3pt,
+    framexleftmargin=0.4cm,
+    framesep=0pt,
+    rulesep=.4pt,
+    backgroundcolor=\color{gray97},
+    rulesepcolor=\color{black},
+    stringstyle=\ttfamily,
+    showstringspaces = false,
+    basicstyle=\small\ttfamily,
+    commentstyle=\color{gray45},
+    keywordstyle=\bfseries,
+    numbers=left,
+    numbersep=15pt,
+    numberstyle=\tiny,
+    numberfirstline = false,
+    breaklines=true,
+    inputencoding=utf8,
+    extendedchars=true,
+    escapeinside={\%*}{*)},
+    literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {ê}{{\^e}}1 {ó}{{\'o}}1 {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1,
+}
+\lstnewenvironment{listing}[1][]{\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+\lstdefinestyle{console}{
+    basicstyle=\scriptsize\bf\ttfamily,
+    backgroundcolor=\color{gray75},
+}
+
+\begin{document}
+
+% front cover
+\maketitle
+
+\section{Introdução}
+
+Uma das tarefas mais importantes e valorizadas na realização de projetos e outras ações de devOps (ações de colaboração entre \textit{developers} e gestores de operação) é a criação de pequenos \textbf{scripts} - pequenos excertos de código executável por um interpretador - numa linguagem própria - a \textbf{Bash}. Esta linguagem de programação é a nativa de grande parte dos terminais que existem nos sistemas operativos da família UNIX, tal como as distribuições Linux ou o sistema operativo \textit{macOS}, da Apple.
+
+\chapter{Uma Primeira Aproximação à Linguagem Bash}
+
+Na sua forma mais simples, um \textit{script} não é nada mais, nada menos, que um conjunto de comandos bash guardados num ficheiro de texto com capacidades executáveis. Consideremos, para este efeito, o seguinte \textit{script}, que cria um diretório, um ficheiro dentro deste e mostra a árvore de diretórios desde a raiz.
+
+\lstinputlisting[language=bash]{scripts/cap1-1.sh}
+
+Ao longo deste documento iremos abordar mais detalhes tanto a nível de comandos da bash, como de \textit{shell scripting}, como um conjunto de comandos bash ou outras opções de abordagem.
+
+\section{Primeiros comandos bash}
+
+Não tendo nunca trabalhado sobre uma consola bash, é importante ter em conta alguns dos seus comandos mais simples, fáceis e úteis para a manipulação de ficheiros. Falamos de \textbf{ficheiros} porque estes são a unidade básica de informação no que toca à manipulação desta por parte de uma consola bash e do sistema operativo UNIX. Assim sendo, uma das primeiras coisas que devemos aprender como fazer é criar, editar, copiar, mover e apagar um ficheiro. Mais, e como nem todos os ficheiros são iguais entre si, dentro desta família de sistemas operativos, também devemos conseguir efetuar estas mesmas operações sobre um tipo específico - o \textbf{diretório}. \\
+Antes de avançarmos com estes comandos é importante referir como obter o estado atual (\textit{feedback}) da própria consola bash. Para obtermos tal resposta devemos procurar pelo \textbf{prompt}. O \textit{prompt} é um símbolo que pretende identificar o local e o tempo em que se pode escrever um comando da bash. Geralmente este identifica-se pelo carater \'\$\' - que iremos usar ao longo deste documento -, embora possa assumir diferentes formas, consoante a personalização que cada um faz da mesma, sobre uma variável de sistema (assunto o qual iremos debater mais à frente). 
+
+\subsection{Criar um ficheiro - comando \texttt{touch}}
+
+Existem várias formas de criar um ficheiro. Entre encaminhar um conjunto de carateres para um local (que virá a produzir um ficheiro), como iremos abordar mais à frente, a criar um ficheiro por si, existe um variado leque de opções para a criação de ficheiros. Por agora, iremos abordar o uso do comando \texttt{touch} para esse efeito. Note-se, não obstante, que este comando apenas serve para criar ficheiros regulares, isto é, ficheiros que não correspondem a diretórios, atalhos ou blocos de dados/carateres. \\
+Consideremos que estamos num diretório vazio e pretendemos criar um ficheiro denominado \texttt{shakes\-peare.txt} vazio. Para o fazer precisamos então de executar o comando \texttt{touch} seguido do nomes do ficheiro que pretendemos criar. Veja-se o seguinte código:
+
+\lstinputlisting[language=bash]{scripts/cap1-2.sh}
+
+A execução deste comando ocorre sem erros quando consegue criar um ficheiro com o nome especificado no diretório atual. Caso ocorra algum erro ao longo do processo, o mais provável é não haver permissão para escrever no diretório atual. As permissões de ficheiros são um assunto a abordar mais à frente.
+
+\subsection{Criar um diretório - comando \texttt{mkdir}}
+
+Os diretórios são ficheiros do sistema operativo UNIX um pouco especiais. Anexos a estes estão conjuntos de outros ficheiros com vários tipos, entre os quais ficheiros regulares, outros diretórios, atalhos, entre outros... Assim sendo, é importante saber como criar este tipo de ficheiro. Para tal, existe o comando \texttt{mkdir} - proveniente de \textit{make directory}. \\
+Para o nosso exemplo de aplicação, tentemos assim criar uma pasta chamada \texttt{au\-thors}, pelo que teremos de executar o comando \texttt{mkdir} juntamente do nome do diretório que pretendemos criar, como podemos ver de seguida:
+
+\lstinputlisting[language=bash]{scripts/cap1-3.sh}
+
+A execução deste comando ocorre sem erros quando consegue criar um diretório com o nome especificado no diretório atual. Caso ocorra algum erro ao longo do processo, o mais provável é não haver permissão para escrever no diretório atual. As permissões de ficheiros são um assunto a abordar mais à frente.
+
+\subsection{Copiar um ficheiro ou diretório - comando \texttt{cp}}
+
+Sabendo já como criar um ficheiro regular e um diretório, então é agora importante saber como copiar um ficheiro e, assim, criar um duplicado deste. Para este tipo de ação usamos o comando \texttt{cp}, que recebe, no mínimo, dois argumentos. Na verdade, o comando de cópia permite que se liste um conjunto de ficheiros para copiar, sendo que o último item listado é sempre o local e o nome de destino da cópia. Por outras palavras, podemos resumir a sintaxe do comando de cópia de duas formas:
+
+\begin{lstlisting}[language=bash, style=console]
+cp ficheiro1 [ficheiro2] [...] [ficheiroN] diretório_de_destino
+\end{lstlisting}
+
+No caso acima temos que um conjunto de ficheiros são enviados para o diretório denominado de \texttt{diretório\_de\_destino}. Não obstante, podemos ter o seguinte caso:
+
+\begin{lstlisting}[language=bash, style=console]
+cp ficheiro_de_origem ficheiro_de_destino
+\end{lstlisting}
+
+Neste caso temos então que o ficheiro com o nome \texttt{ficheiro\_de\_origem} será copiado, sendo criado um ficheiro equivalente, mas com o nome \texttt{ficheiro\_de\_destino}. \\
+Testando os dois casos temos o seguinte:
+
+\lstinputlisting[language=bash]{scripts/cap1-4.sh}
+
+No primeiro caso temos que o ficheiro \texttt{shakespeare.txt} será copiado para o ficheiro novo com o nome de \texttt{dickens.txt}. No segundo caso de aplicação, onde aplicamos o primeiro padrão que vimos para este comando, temos que os ficheiros \texttt{shakespeare.txt} e \texttt{dickens.txt} serão ambos copiados para dois novos ficheiros com o mesmo nome, agora dentro do diretório já criado com o nome \texttt{authors}. No fim deste processo devemos ter algo como o seguinte:
+
+\begin{lstlisting}[style=console]
+ authors
+   | -- dickens.txt
+   | -- shakespeare.txt
+ dickens.txt
+ shakespeare.txt
+\end{lstlisting}
+
+Continuando de subssecção em subssecção iremos modificar esta árvore de ficheiros. \\
+A execução deste comando ocorre sem erros quando consegue copiar um ou mais ficheiros com o nome especificado (ou para o diretório especificado). Caso ocorra algum erro ao longo do processo, o mais provável é não haver permissão para escrever no diretório atual. As permissões de ficheiros são um assunto a abordar mais à frente. Note-se também que este comando não permite a cópia de diretórios sem a utilização de uma opção especial (a não ser que estes estejam vazios). Para copiar um
+diretório com conteúdo deverá executar o comando \texttt{cp} com a opção \texttt{-r} de \"recursivo\" - este método permite que o sistema operativo possa consultar todos os ficheiros que residem dentro desse diretório e que os possa copiar um a um, mantendo a mesma organização.
+
+\subsection{Editar um ficheiro através de um editor de texto}
+
+Por esta altura já sabemos criar e copiar ficheiros e diretórios. Mas os ficheiros que temos até agora são meros ficheiros de texto que estão vazios e não possuem qualquer tipo de significado, a não ser o título que lhes demos. Para lhes acrescentar algum conteúdo necessitamos daquilo a que se chama um \textbf{editor de texto}. Não havendo a possibilidade de integrar processadores de texto como o Microsoft Word ou um Pages numa consola UNIX-\textit{like}, temos então que arranjar uma
+ferramenta que nos forneça uma forma fácil e rápida de podermos modificar os nossos ficheiros. \\
+Um exemplo de editor de texto mais convencional é o \texttt{nano}. Este editor de texto é muito simples e usa uma interface controlável através de combinações de teclas com a tecla Ctrl. Para abrir o ficheiro \texttt{shakespeare.txt} com o nano apenas temos de executar o seguinte:
+
+\begin{lstlisting}[language=bash, style=console]
+nano shakespeare.txt
+\end{lstlisting}
+
+Neste documento não iremos abordar como trabalhar com o \texttt{nano}, mas antes com um editor muito mais completo, de seu nome \texttt{vim}. Para abrir ficheiros com o \texttt{vim} o processo é precisamente o mesmo, mas a interação com a própria interface deste editor de texto não é propriamente trivial, pelo que merece destaque numa das unidades deste documento. \\
+Consideremos então que já temos algum conteúdo instalado dentro de cada um dos ficheiros com extensão \texttt{txt} - poderá inserir texto arbitrário dentro destes ficheiros, se assim o entender.
+
+\subsection{Mover um ficheiro ou diretório - comando \texttt{mv}}
+
+Olhando para a nossa árvore atual de ficheiros podíamos organizar melhor a forma como estruturamos os ficheiros e diretórios. Sabemos que ambos Shakespeare e Dickens são autores, mas até seria interessante criar pastas com os nomes deles e nelas colocar obras e informações acerca dos mesmos. Para isso necessitamos de saber criar diretórios, ficheiros e movê-los, tal como mudar o nome deles, eventualmente. Estas duas últimas tarefas (mover e mudar o nome) são consideradas objeto do comando
+\texttt{mv} que recebe dois ou mais argumentos, de forma algo semelhante ao que acontece com o comando \texttt{cp}. 
+
+\subsection{Eliminar um ficheiro - comando \texttt{rm}}
+
+\subsection{Eliminar um diretório - comando \texttt{rmdir}}
+
+\subsection{Ver o conteúdo de um ficheiro - comando \texttt{cat}}
+
+\subsection{Listar o conteúdo de um diretório - comando \texttt{ls}}
+
+\subsection{Ver informações acerca de comandos - comando \texttt{man}}
+
+\subsection{Identificar um comando por um propósito - comando \texttt{apropos}}
+
+% table of contents
+\tableofcontents
+
+\newpage
+
+% call acronym descriptions
+\printacronyms[include-classes=abbrev, name=Acrónimos]
+\end{document}
