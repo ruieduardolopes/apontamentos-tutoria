@@ -13,3 +13,41 @@
 \contentsline {subsection}{\numberline {1.1.9}Listar o conte\IeC {\'u}do de um diret\IeC {\'o}rio - comando \texttt {ls}}{5}{subsection.1.1.9}
 \contentsline {subsection}{\numberline {1.1.10}Ver informa\IeC {\c c}\IeC {\~o}es acerca de comandos - comando \texttt {man}}{5}{subsection.1.1.10}
 \contentsline {subsection}{\numberline {1.1.11}Identificar um comando por um prop\IeC {\'o}sito - comando \texttt {apropos}}{5}{subsection.1.1.11}
+\contentsline {section}{\numberline {1.2}Sha-Bang, para n\IeC {\~a}o haver d\IeC {\'u}vidas}{5}{section.1.2}
+\contentsline {section}{\numberline {1.3}Introdu\IeC {\c c}\IeC {\~a}o \IeC {\`a} \textit {Bash Scripting}}{5}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Cria\IeC {\c c}\IeC {\~a}o de ficheiros de scripting (extens\IeC {\~a}o \texttt {sh})}{5}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Portabilidade de scripts e Permiss\IeC {\~o}es}{5}{subsection.1.3.2}
+\contentsline {chapter}{\numberline {2}Sess\IeC {\~o}es em Consola (\textit {Time-Sharing}) e Processos}{6}{chapter.2}
+\contentsline {section}{\numberline {2.1}Enquadramento hist\IeC {\'o}rico da consola UNIX}{6}{section.2.1}
+\contentsline {section}{\numberline {2.2}Manipula\IeC {\c c}\IeC {\~a}o de Processos e Envio de Sinais}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Conceito de processo}{6}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Visualiza\IeC {\c c}\IeC {\~a}o de processos - comando \texttt {ps}}{6}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Hierarquia de processos}{6}{subsection.2.2.3}
+\contentsline {subsection}{\numberline {2.2.4}Conceito de sinal}{6}{subsection.2.2.4}
+\contentsline {subsection}{\numberline {2.2.5}Envio de sinais a identificadores de procesos - comando \texttt {kill}}{6}{subsection.2.2.5}
+\contentsline {subsection}{\numberline {2.2.6}Envio de sinais a processos nomeados - comando \texttt {killall}}{6}{subsection.2.2.6}
+\contentsline {subsection}{\numberline {2.2.7}Ciclo de vida dos processos em UNIX}{6}{subsection.2.2.7}
+\contentsline {subsection}{\numberline {2.2.8}Redirecionamento de sa\IeC {\'\i }da de processos para entrada de outros - \textit {pipe}}{6}{subsection.2.2.8}
+\contentsline {subsection}{\numberline {2.2.9}Conceito de \textit {threads} e sua manipula\IeC {\c c}\IeC {\~a}o}{6}{subsection.2.2.9}
+\contentsline {subsection}{\numberline {2.2.10}Interfaces de gest\IeC {\~a}o de processos na m\IeC {\'a}quina - comando \texttt {htop}}{6}{subsection.2.2.10}
+\contentsline {chapter}{\numberline {3}Manipula\IeC {\c c}\IeC {\~a}o de Dados e Informa\IeC {\c c}\IeC {\~a}o em Bash}{7}{chapter.3}
+\contentsline {section}{\numberline {3.1}Filtragem de Informa\IeC {\c c}\IeC {\~a}o em \textit {streams} de Dados}{7}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Utiliza\IeC {\c c}\IeC {\~a}o do \textit {pipe} para filtragem de dados}{7}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Express\IeC {\~o}es Regulares como filtro para dados - comando \texttt {grep} e \texttt {egrep}}{7}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Corte de dados para sele\IeC {\c c}\IeC {\~a}o de informa\IeC {\c c}\IeC {\~a}o a apresentar - comando \texttt {cut}}{7}{subsection.3.1.3}
+\contentsline {section}{\numberline {3.2}Manipula\IeC {\c c}\IeC {\~a}o direta de dados com indexa\IeC {\c c}\IeC {\~a}o direta}{7}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Utiliza\IeC {\c c}\IeC {\~a}o da ferramenta \texttt {awk}}{7}{subsection.3.2.1}
+\contentsline {subsubsection}{Sintaxe b\IeC {\'a}sica do \texttt {awk}}{7}{section*.1}
+\contentsline {subsubsection}{Ciclo de vida da ferramenta}{7}{section*.2}
+\contentsline {subsubsection}{Manipula\IeC {\c c}\IeC {\~a}o de vari\IeC {\'a}veis de sistema}{7}{section*.3}
+\contentsline {subsubsection}{Operadores e Arrays}{7}{section*.4}
+\contentsline {subsubsection}{Controlo de fluxo e ciclos}{7}{section*.5}
+\contentsline {subsubsection}{Cria\IeC {\c c}\IeC {\~a}o e utlilza\IeC {\c c}\IeC {\~a}o de fun\IeC {\c c}\IeC {\~o}es}{7}{section*.6}
+\contentsline {subsubsection}{Redirecionamento e melhoramento de sa\IeC {\'\i }das de dados}{7}{section*.7}
+\contentsline {subsection}{\numberline {3.2.2}Manipula\IeC {\c c}\IeC {\~a}o de conjuntos de dados com a ferramenta \texttt {sed}}{7}{subsection.3.2.2}
+\contentsline {subsubsection}{Sintaxe b\IeC {\'a}sica do \texttt {sed}}{7}{section*.8}
+\contentsline {subsubsection}{Ciclo de vida da ferramenta}{7}{section*.9}
+\contentsline {subsubsection}{Manipula\IeC {\c c}\IeC {\~a}o de ciclos e \textit {branches}}{7}{section*.10}
+\contentsline {subsubsection}{\textit {Buffer} e \IeC {\^a}mbito de padr\IeC {\~o}es}{7}{section*.11}
+\contentsline {subsubsection}{Carateres especiais}{7}{section*.12}
+\contentsline {subsubsection}{Receitas \IeC {\'u}teis}{7}{section*.13}
