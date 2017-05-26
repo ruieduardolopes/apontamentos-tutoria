@@ -110,7 +110,7 @@ Sabendo já como criar um ficheiro regular e um diretório, então é agora impo
 cp ficheiro1 [ficheiro2] [...] [ficheiroN] diretório_de_destino
 \end{lstlisting}
 
-No caso acima temos que um conjunto de ficheiros são enviados para o diretório denominado de \texttt{diretório\_de\_destino}. Não obstante, podemos ter o seguinte caso:
+No caso acima temos que um conjunto de ficheiros são copiados para o diretório denominado de \texttt{diretório\_de\_destino}. Não obstante, podemos ter o seguinte caso:
 
 \begin{lstlisting}[language=bash, style=console]
 cp ficheiro_de_origem ficheiro_de_destino
@@ -153,11 +153,80 @@ Consideremos então que já temos algum conteúdo instalado dentro de cada um do
 Olhando para a nossa árvore atual de ficheiros podíamos organizar melhor a forma como estruturamos os ficheiros e diretórios. Sabemos que ambos Shakespeare e Dickens são autores, mas até seria interessante criar pastas com os nomes deles e nelas colocar obras e informações acerca dos mesmos. Para isso necessitamos de saber criar diretórios, ficheiros e movê-los, tal como mudar o nome deles, eventualmente. Estas duas últimas tarefas (mover e mudar o nome) são consideradas objeto do comando
 \texttt{mv} que recebe dois ou mais argumentos, de forma algo semelhante ao que acontece com o comando \texttt{cp}. 
 
+\begin{lstlisting}[language=bash, style=console]
+mv ficheiro1 [ficheiro2] [...] [ficheiroN] diretório_de_destino
+\end{lstlisting}
+
+No caso acima temos que um conjunto de ficheiros são enviados para o diretório denominado de \texttt{diretório\_de\_destino}. Não obstante, podemos ter o seguinte caso:
+
+\begin{lstlisting}[language=bash, style=console]
+cp ficheiro_de_origem local_de_destino
+\end{lstlisting}
+
+Neste caso temos então que o ficheiro com o nome \texttt{ficheiro\_de\_origem} será movidopara o local com o nome \texttt{ficheiro\_de\_destino}. \\
+Não obstante, este comando não permite apenas a movimentação de ficheiros dentro do disco, mas também a mudança de nome dos mesmos, isto é, sendo que o comando, tal como foi expresso acima, também poderá ser interpretado da seguinte forma:
+
+\begin{lstlisting}[language=bash, style=console]
+cp nome_de_ficheiro_original nome_de_ficheiro_novo
+\end{lstlisting}
+
+Testando os dois casos temos o seguinte:
+
+\lstinputlisting[language=bash]{scripts/cap1-5.sh}
+
+No \textit{script} acima temos então que primeiro criamos pastas com o nome de ambos os autores Dickens e Shakespeare dentro do diretório \texttt{authors}. Tendo sido criados tais diretórios, então agora é a vez de movermos os ficheiros \texttt{txt} que residem na pasta \texttt{authors} para dentro do diretório do autor respetivo. No fim, alteramos os nomes desses ficheiros para \texttt{biography.txt}. A estrutura final de ficheiros deverá ser algo do género da representação abaixo:
+
+\begin{lstlisting}[style=console]
+ authors
+   | -- dickens
+   |      | -- biography.txt
+   | -- shakespeare
+   |      | -- biography.txt
+ dickens.txt
+ shakespeare.txt
+\end{lstlisting}
+
+A execução deste comando ocorre sem erros quando consegue mover um ou mais ficheiros com o nome especificado (ou para o diretório especificado). Caso ocorra algum erro ao longo do processo, o mais provável é não haver permissão para escrever no diretório indicado. As permissões de ficheiros são um assunto a abordar mais à frente. 
+
 \subsection{Eliminar um ficheiro - comando \texttt{rm}}
+
+Claro está que, de acordo com a última organização que aplicámos na nossa estrutura arbórea de ficheiros, temos dois ficheiros \texttt{txt} que estão a mais na raiz - o ficheiro \texttt{dickens.txt} e o ficheiro \texttt{shakespeare.txt}. Para isso precisamos de saber como os eliminar. \\
+Assim sendo, por outras palavras, necessitamos de executar o comando \texttt{rm} de forma a consolidar esta nossa pretensão. Este comando é muito simples, recebendo apenas como argumento a lista de ficheiros que se pretendem eliminar. Como tal, para eliminar os ficheiros \texttt{txt} no diretório raiz (da nossa árvore, não do sistema operativo), apenas precisamos de executar o seguinte comando:
+
+\lstinputlisting[language=bash]{scripts/cap1-6.sh}
+
+Através do uso de \textbf{expressões regulares} - assunto o qual iremos abordar com mais detalhe mais à frente - podemos inclusive diminuir o detalhe explícito do comando, referindo que pretendemos eliminar, no diretório atual, todos os ficheiros que possuam um conjunto de carateres quaisquer ao início, mas que terminem com \texttt{.txt}, o que se faz representar pela expressão regular \texttt{*.txt}. Em algumas consolas, inclusive, ao escrever tal expressão regular seguida da tecla TAB, é listada automaticamente todos os ficheiros a que tal comando corresponde, mas de modo explícito, sendo que no nosso caso tal deverá ser exatamente igual ao comando anterior.
+
+\lstinputlisting[language=bash]{scripts/cap1-7.sh}
+
+Caso o utilizador que execute este comando não tenha permissões para ler ou escrever sobre este ficheiro, então a sua eliminação não será possível. Um outro erro frequente e possível é a tentativa de eliminação de um diretório, o qual só poderá ser feito, sem opções extra, com o comando explicado de seguida.
 
 \subsection{Eliminar um diretório - comando \texttt{rmdir}}
 
+Na nossa estrutura de árvore de ficheiros não temos nenhuma pasta que pretendamos eliminar, mas podemos considerar que criamos uma chamada \texttt{temp} e que a queremos eliminar agora. Para o fazer, e dado que estamos perante um novo tipo de ficheiros, será necessário invocar o comando \texttt{rmdir}. Vejamos o seguinte exemplo:
+
+\lstinputlisting[language=bash]{scripts/cap1-8.sh}
+
+No código acima criamos a pasta \texttt{temp} para a podermos apagar com o comando \texttt{rmdir}. Note-se, não obstante, que a pasta que criámos foi apagada enquanto vazia, sendo que não é possível apagar diretórios não vazios com este comando. Para tal, e como estamos a referir mais do que um tipo de ficheiros no sistema operativo UNIX, então devemos usar o comando \texttt{rm} para apagar diretórios com conteúdo, através de uma sua opção recursiva e forçosa - mais propriamente a \texttt{-r} e a \texttt{-f}. Considerando novamente o diretório \texttt{temp} criado (e agora com ficheiros nele incluídos), para o apagar, necessitamos de executar o seguinte comando:
+
+\lstinputlisting[language=bash]{scripts/cap1-9.sh}
+
+Possíveis erros que possam ser criados poderão ocorrer simplesmente à conta de permissões que o utilizador atual não possui.
+
 \subsection{Ver o conteúdo de um ficheiro - comando \texttt{cat}}
+
+Tendo editado anteriormente pelo menos um dos ficheiros de biografia dos autores, é-nos possível visualizar o seu conteúdo através do comando \texttt{cat}. O nome deste comando não provém da palavra \textit{cat} em inglês (gato, em português), mas antes de uma abreviatura para \textit{concatenation} (em português, concatenação), que significa junção de várias partes (anexação). Isto tem este nome porque ao executar este comando iremos enviar para o nosso terminal um determinado ficheiro carater a carater, concatenados. \\
+Assim sendo, para executarmos a leitura do ficheiro de biografia de Dickens, podemos executar o seguinte comando:
+
+\lstinputlisting[language=bash]{scripts/cap1-10.sh}
+
+O resutado da execução acima é a impressão de todos os seus carateres no próprio terminal. Mais à frente iremos ver como contornar este possível obstáculo de imprimir exclusivamente para o terminal, através de outras ferramentas intrínsecas à \textit{bash}. 
+
+\begin{lstlisting}[style=console]
+Charles John Huffam Dickens (7 February 1812 - 9 June 1870) was an English writer and social critic. He created some of the world's best-known fictional characters and is regarded by many as the greatest novelist of the Victorian era. His works enjoyed unprecedented popularity during his lifetime, and by the twentieth century critics and scholars had recognised him as a literary genius. His novels and short stories enjoy lasting popularity...
+\end{lstlisting}
+
+A execução deste comando poderá suscitar erros a nível de permissão, caso o utilizador não possua direitos de leitura deste.
 
 \subsection{Listar o conteúdo de um diretório - comando \texttt{ls}}
 
@@ -241,6 +310,7 @@ Olhando para a nossa árvore atual de ficheiros podíamos organizar melhor a for
 
 \subsubsection{Receitas úteis}
 
+\chapter{Editar Ficheiros de Texto com \texttt{vim}}
 
 % table of contents
 \tableofcontents
