@@ -10,7 +10,7 @@
 \contentsline {subsection}{\numberline {1.1.6}Eliminar um ficheiro - comando \texttt {rm}}{5}{subsection.1.1.6}
 \contentsline {subsection}{\numberline {1.1.7}Eliminar um diret\IeC {\'o}rio - comando \texttt {rmdir}}{6}{subsection.1.1.7}
 \contentsline {subsection}{\numberline {1.1.8}Ver o conte\IeC {\'u}do de um ficheiro - comando \texttt {cat}}{6}{subsection.1.1.8}
-\contentsline {subsection}{\numberline {1.1.9}Listar o conte\IeC {\'u}do de um diret\IeC {\'o}rio - comando \texttt {ls}}{7}{subsection.1.1.9}
+\contentsline {subsection}{\numberline {1.1.9}Listar o conte\IeC {\'u}do de um diret\IeC {\'o}rio - comando \texttt {ls} e \texttt {tree}}{7}{subsection.1.1.9}
 \contentsline {subsection}{\numberline {1.1.10}Ver informa\IeC {\c c}\IeC {\~o}es acerca de comandos - comando \texttt {man}}{7}{subsection.1.1.10}
 \contentsline {subsection}{\numberline {1.1.11}Identificar um comando por um prop\IeC {\'o}sito - comando \texttt {apropos}}{7}{subsection.1.1.11}
 \contentsline {section}{\numberline {1.2}Sha-Bang, para n\IeC {\~a}o haver d\IeC {\'u}vidas}{7}{section.1.2}

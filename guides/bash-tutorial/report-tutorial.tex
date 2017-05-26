@@ -223,12 +223,31 @@ Assim sendo, para executarmos a leitura do ficheiro de biografia de Dickens, pod
 O resutado da execução acima é a impressão de todos os seus carateres no próprio terminal. Mais à frente iremos ver como contornar este possível obstáculo de imprimir exclusivamente para o terminal, através de outras ferramentas intrínsecas à \textit{bash}. 
 
 \begin{lstlisting}[style=console]
-Charles John Huffam Dickens (7 February 1812 - 9 June 1870) was an English writer and social critic. He created some of the world's best-known fictional characters and is regarded by many as the greatest novelist of the Victorian era. His works enjoyed unprecedented popularity during his lifetime, and by the twentieth century critics and scholars had recognised him as a literary genius. His novels and short stories enjoy lasting popularity...
+Charles John Huffam Dickens (7 February 1812 - 9 June 1870) was an English writer and social critic. He created some of the world's best-known fictional characters and has his regards by many as the greatest novelist of the Victorian era. His works enjoyed unprecedented popularity during his lifetime, and by the twentieth century critics and scholars had recognised him as a literary genius. His novels and short stories enjoy lasting popularity...
 \end{lstlisting}
 
 A execução deste comando poderá suscitar erros a nível de permissão, caso o utilizador não possua direitos de leitura deste.
 
-\subsection{Listar o conteúdo de um diretório - comando \texttt{ls}}
+\subsection{Listar o conteúdo de um diretório - comando \texttt{ls} e \texttt{tree}}
+
+Até agora temos vindo sempre a apresentar uma tarefa com um ficheiro regular e a mesma com diretórios. Assim, e dado que anteriormente falámos de como ver o conteúdo de ficheiros de texto, agora podemos investigar como listar o conteúdo de um diretório. \\
+Para esta função precisamos de conhecer o comando \texttt{ls}, de \textit{list}. Executando este comando dentro de um diretório \texttt{dir} é então possível ver todos os ficheiros que nele residem, entre ficheiros regulares, diretórios e outros. Se executarmos o comando \texttt{ls} dentro do nosso diretório raiz podemos ver o seguinte:
+
+\begin{lstlisting}[style=console]
+$ ls
+authors
+\end{lstlisting}
+
+Nas consolas \textit{bash} os comandos não são necessariamente tão lineares como temos vindo a apresentar, sendo que eles possuem (se assim pretendermos ou precisarmos), opções de execução. Dentro do comando \texttt{ls} existem três opções que nos serão relevantes, entre elas a \texttt{-a}, \texttt{-l} e a \texttt{-r}. \\
+A opção \texttt{-a} permite que se vejam todos (\textit{all}) os ficheiros que estão contidos no diretório atual. Isto por vezes torna-se necessário porque, por convenção, existem ficheiros ocultos cujo nome começam por um ponto \texttt{.}. Para vermos todos os ficheiros usamos então a opção \texttt{-a}, executando \texttt{ls -a}. \\
+Para listarmos os vários ficheiros e alguns detalhes acerca dos mesmos podemos executar o comando com a opção \texttt{-l}, o que revela todo um conjunto de informações acerca dos ficheiros. Mais precisamente, são apresentadas as seguintes informações pela ordem precisa: permissões, número de ligações físicas (\textit{hard links} - abordaremos este assunto mais à frente), dono do ficheiro, grupo dono do ficheiro, tamanho do ficheiro, data da última modificação e nome. Vejamos um exemplo:
+
+\begin{lstlisting}[style=console]
+$ ls -l
+drwxr-xr-x   2 apontamentos  staff    68B Jan 1 12:00 authors
+\end{lstlisting}
+
+
 
 \subsection{Ver informações acerca de comandos - comando \texttt{man}}
 
